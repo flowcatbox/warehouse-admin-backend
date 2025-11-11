@@ -1,8 +1,8 @@
 -- 初始化用户数据
-INSERT INTO users (username, email, role, department, phone, status, create_time) VALUES
-                                                                                      ('admin', 'admin@example.com', 'admin', 'Technology', '13800138000', 'ACTIVE', CURRENT_TIMESTAMP),
-                                                                                      ('john_doe', 'john.doe@example.com', 'editor', 'Content', '13800138001', 'ACTIVE', CURRENT_TIMESTAMP),
-                                                                                      ('jane_smith', 'jane.smith@example.com', 'viewer', 'Marketing', '13800138002', 'ACTIVE', CURRENT_TIMESTAMP);
+INSERT INTO users (username, password, email, role, department, phone, status, create_time) VALUES
+                                                                                      ('admin','123456', 'admin@example.com', 'admin', 'Technology', '13800138000', 'ACTIVE', CURRENT_TIMESTAMP),
+                                                                                      ('john_doe', '123456','john.doe@example.com', 'editor', 'Content', '13800138001', 'ACTIVE', CURRENT_TIMESTAMP),
+                                                                                      ('jane_smith', '123456','jane.smith@example.com', 'viewer', 'Marketing', '13800138002', 'ACTIVE', CURRENT_TIMESTAMP);
 
 -- 初始化布草数据
 INSERT INTO linen_items (item_id, description, on_hand, min_stock, max_stock, category, location, status, created_at, last_updated) VALUES

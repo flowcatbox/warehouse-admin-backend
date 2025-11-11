@@ -3,6 +3,7 @@ package com.warehouse.entity;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.validation.constraints.*;
 
 @Data
 @Entity
@@ -15,6 +16,10 @@ public class User {
     @Column(unique = true, nullable = false)
     private String username;
 
+    @NotBlank
+    private String password;
+
+    @Email
     @Column(nullable = false)
     private String email;
 

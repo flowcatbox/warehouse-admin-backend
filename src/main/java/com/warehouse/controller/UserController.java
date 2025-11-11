@@ -5,6 +5,7 @@ import com.warehouse.service.UserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,17 +58,32 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         if (userService.deleteUser(id)) {
-            return ResponseEntity.ok().build();
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "User has been deleted");
+            return ResponseEntity.ok(response);
+        }else{
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/batch-delete")
     public ResponseEntity<?> batchDeleteUsers(@RequestBody BatchDeleteRequest request) {
+        int successCount = 0;
         for (Long id : request.getIds()) {
-            userService.deleteUser(id);
+            if (userService.deleteUser(id)) {
+                successCount++;
+            }
         }
-        return ResponseEntity.ok().build();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Successfully deleted " + successCount + " users");
+        response.put("deletedCount", successCount);
+        return ResponseEntity.ok(response);
     }
 
     @Data

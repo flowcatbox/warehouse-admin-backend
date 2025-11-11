@@ -17,33 +17,32 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 public class AuthController {
 
-    // 这里就是之前缺少的 userRepository 字段
     @Autowired
     private UserRepository userRepository;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        // 1. 根据用户名查数据库
+        // 1. Search user by username
         User user = userRepository.findByUsername(request.getUsername());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid username or password");
         }
 
-        // 2. 校验密码（目前是明文比较，后面可以换成加密）
+        // 2. Validate password
         if (!Objects.equals(user.getPassword(), request.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid username or password");
         }
 
-        // 3. 组装 userInfo，字段名要和前端对齐
+        // 3. Make userinfo which has to be matched with the front-end
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("id", user.getId().toString());
         userInfo.put("username", user.getUsername());
         userInfo.put("role", user.getRole());
         userInfo.put("email", user.getEmail());
 
-        // 前端会用到 user.permissions
+        // user.permissions
         String[] permissions;
         if ("ADMIN".equalsIgnoreCase(user.getRole())) {
             permissions = new String[]{"user:add", "user:edit", "user:delete", "linen:manage"};
@@ -52,7 +51,7 @@ public class AuthController {
         }
         userInfo.put("permissions", permissions);
 
-        // 4. 返回 token（先用 UUID 占位）
+        // 4. Return token
         Map<String, Object> response = new HashMap<>();
         response.put("accessToken", UUID.randomUUID().toString());
         response.put("refreshToken", UUID.randomUUID().toString());
@@ -73,7 +72,7 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser() {
-        // 简陋但能用：先固定返回 admin 这条记录
+        // Retrieve the admin
         User user = userRepository.findByUsername("admin");
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

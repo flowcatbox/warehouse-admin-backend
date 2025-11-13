@@ -5,6 +5,8 @@ import com.warehouse.service.UserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,16 +28,21 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String role,
-            @RequestParam(required = false) String status) {
+            @RequestParam(required = false) String department,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String createTimeStart,
+            @RequestParam(required = false) String createTimeEnd) {
 
-        // 模拟分页响应
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<User> userPage = userService.getUsersWithPagination(
+                pageable, username, role, department, status, createTimeStart, createTimeEnd);
+
         Map<String, Object> response = new HashMap<>();
-        List<User> users = userService.getAllUsers();
-
-        response.put("list", users);
-        response.put("total", users.size());
+        response.put("list", userPage.getContent());
+        response.put("total", userPage.getTotalElements());
         response.put("page", page);
         response.put("size", size);
+        response.put("totalPages", userPage.getTotalPages());
 
         return ResponseEntity.ok(response);
     }

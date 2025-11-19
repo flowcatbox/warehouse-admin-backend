@@ -2,8 +2,10 @@ package com.warehouse.controller;
 
 import com.warehouse.entity.LinenItem;
 import com.warehouse.repository.LinenRepository;
+import com.warehouse.service.LinenService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class LinenController {
     private final LinenRepository linenRepository;
+    private final LinenService linenService;
 
     @GetMapping
     public ResponseEntity<?> getLinenItems(
@@ -40,10 +43,8 @@ public class LinenController {
 
     @PostMapping
     public ResponseEntity<LinenItem> createLinen(@RequestBody LinenItem item) {
-        item.setCreatedAt(LocalDateTime.now());
-        item.setLastUpdated(LocalDateTime.now());
-        LinenItem saved = linenRepository.save(item);
-        return ResponseEntity.ok(saved);
+        LinenItem linenItem = linenService.createLinen(item);
+        return ResponseEntity.ok(linenItem);
     }
 
     @PutMapping("/{id}")
@@ -73,11 +74,17 @@ public class LinenController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteLinen(@PathVariable Long id) {
-        if (linenRepository.existsById(id)) {
-            linenRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        if(linenService.deleteLinen(id)) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Linen item has been deleted");
+            return ResponseEntity.ok(response);
+        }else{
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Linen item hasn't been deleted");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/{id}/inbound")

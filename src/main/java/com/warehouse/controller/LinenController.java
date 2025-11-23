@@ -5,6 +5,9 @@ import com.warehouse.repository.LinenRepository;
 import com.warehouse.service.LinenService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,18 +29,33 @@ public class LinenController {
     public ResponseEntity<?> getLinenItems(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String itemId,
+            @RequestParam(required = false) String category,
             @RequestParam(required = false) String description,
-            @RequestParam(required = false) String status) {
+            @RequestParam(required = false) String itemId,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String createdTimeStart,
+            @RequestParam(required = false) String createdTimeEnd) {
 
-        List<LinenItem> items = linenRepository.findAll();
+
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<LinenItem> linenItemsPage = linenService.getLinenItemsWithPagination(
+                pageable,
+                category,
+                description,
+                itemId,
+                location,
+                status,
+                createdTimeStart,
+                createdTimeEnd
+        );
 
         Map<String, Object> response = new HashMap<>();
-        response.put("list", items);
-        response.put("total", items.size());
+        response.put("list", linenItemsPage.getContent());
+        response.put("total", linenItemsPage.getTotalElements());
         response.put("page", page);
         response.put("size", size);
-
+        response.put("totalPages", linenItemsPage.getTotalPages());
         return ResponseEntity.ok(response);
     }
 
@@ -110,7 +128,6 @@ public class LinenController {
                         LinenItem saved = linenRepository.save(item);
                         return ResponseEntity.ok(saved);
                     } else {
-                        // 返回错误信息而不是 LinenItem
                         Map<String, String> errorResponse = new HashMap<>();
                         errorResponse.put("error", "Insufficient stock");
                         errorResponse.put("message", "Cannot outbound more than current stock");

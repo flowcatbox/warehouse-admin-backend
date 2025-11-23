@@ -67,27 +67,11 @@ public class LinenController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LinenItem> updateLinen(@PathVariable Long id, @RequestBody LinenItem itemDetails) {
-        return linenRepository.findById(id)
-                .map(item -> {
-                    if (itemDetails.getDescription() != null)
-                        item.setDescription(itemDetails.getDescription());
-                    if (itemDetails.getOnHand() != null)
-                        item.setOnHand(itemDetails.getOnHand());
-                    if (itemDetails.getMinStock() != null)
-                        item.setMinStock(itemDetails.getMinStock());
-                    if (itemDetails.getMaxStock() != null)
-                        item.setMaxStock(itemDetails.getMaxStock());
-                    if (itemDetails.getCategory() != null)
-                        item.setCategory(itemDetails.getCategory());
-                    if (itemDetails.getLocation() != null)
-                        item.setLocation(itemDetails.getLocation());
-                    if (itemDetails.getStatus() != null)
-                        item.setStatus(itemDetails.getStatus());
-
-                    item.setLastUpdated(LocalDateTime.now());
-                    return ResponseEntity.ok(linenRepository.save(item));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        LinenItem updatedLinenItem = linenService.updateLinenItem(id, itemDetails);
+        if(updatedLinenItem != null){
+            return ResponseEntity.ok(updatedLinenItem);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

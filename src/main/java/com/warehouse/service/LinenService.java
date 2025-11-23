@@ -83,6 +83,22 @@ public class LinenService {
         return linenRepository.findById(id);
     }
 
+    public LinenItem updateLinenItem(Long id, LinenItem linenItem){
+        return linenRepository.findById(id)
+                .map(item ->{
+                    item.setDescription(linenItem.getDescription());
+                    item.setCategory(linenItem.getCategory());
+                    item.setItemId(linenItem.getItemId());
+                    item.setLocation(linenItem.getLocation());
+                    item.setStatus(linenItem.getStatus());
+                    item.setMaxStock(linenItem.getMaxStock());
+                    item.setMinStock(linenItem.getMinStock());
+                    item.setLastUpdated(LocalDateTime.now());
+                    return linenRepository.save(item);
+                })
+                .orElse(null);
+    }
+
     public LinenItem createLinen(LinenItem linenItemInfo){
         linenItemInfo.setCreatedAt(LocalDateTime.now());
         return linenRepository.save(linenItemInfo);

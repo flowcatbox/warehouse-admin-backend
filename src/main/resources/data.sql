@@ -62,3 +62,14 @@ INSERT INTO linen_items (item_id, description, on_hand, min_stock, max_stock, ca
                                                                                                                                         ('LIN-030', 'Pillow - Latex', 20, 15, 50, 'Bedding', 'Warehouse A', 'LOW_STOCK', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
                                                                                                                                         ('LIN-031', 'Bath Mat - Plush', 30, 20, 70, 'Bath', 'Warehouse B', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
                                                                                                                                         ('LIN-032', 'Duvet Cover - Queen', 65, 40, 140, 'Bedding', 'Warehouse A', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO department (department_code, department_name) VALUES
+                                                              ('HR', 'Human Resources'),
+                                                              ('FIN', 'Finance'),
+                                                              ('ENG', 'Engineering'),
+                                                              ('OPS', 'Operations'),
+                                                              ('MKT', 'Marketing'),
+                                                              ('IT', 'Information Technology'),
+                                                              ('QA', 'Quality Assurance'),
+                                                              ('RND', 'Research and Development');
+
+

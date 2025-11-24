@@ -47,7 +47,7 @@ public class UserService {
 
             if (StringUtils.hasText(department)) {
                 predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("department")),
+                        criteriaBuilder.lower(root.get("Department")),
                         "%" + department.toLowerCase() + "%"
                 ));
             }

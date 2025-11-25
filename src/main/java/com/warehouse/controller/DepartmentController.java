@@ -38,4 +38,34 @@ public class DepartmentController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department){
+        Department createdDepartment = departmentService.createDepartment(department);
+        return ResponseEntity.ok(createdDepartment);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody Department department){
+        Department updatedDepartment = departmentService.updateDepartment(id, department);
+        if(updatedDepartment != null){
+            return ResponseEntity.ok(updatedDepartment);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDepartment(@PathVariable Long id){
+        if(departmentService.deleteDepartment(id)){
+            Map<String, Object> response = new HashMap<>();
+            response.put ("message", "Department deleted successfully");
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        }else{
+            Map<String, Object> response = new HashMap<>();
+            response.put ("message", "Department deleted failure");
+            response.put("success", false);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
 }

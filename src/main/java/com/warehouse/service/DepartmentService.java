@@ -38,4 +38,27 @@ public class DepartmentService {
            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }
+
+    public Department createDepartment(Department department){
+        return departmentRepository.save(department);
+    }
+
+    public Department updateDepartment(Long id, Department departmentDetail){
+        return departmentRepository.findById(id)
+                .map(department ->{
+                    department.setDepartmentName(departmentDetail.getDepartmentName());
+                    department.setDepartmentCode(departmentDetail.getDepartmentCode());
+                    return departmentRepository.save(department);
+                })
+                .orElse(null);
+    }
+
+    public boolean deleteDepartment(Long id){
+        if(departmentRepository.findById(id).isPresent()){
+            departmentRepository.deleteById(id);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

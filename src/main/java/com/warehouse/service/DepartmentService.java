@@ -24,6 +24,7 @@ public class DepartmentService {
 
     public Page<Department> findByDepartmentNameContainingIgnoreCase(
             Pageable pageable,
+            String departmentCode,
             String departmentName
     ){
         return departmentRepository.findAll((Specification<Department>) (root, query, criteriaBuilder)->{
@@ -35,6 +36,14 @@ public class DepartmentService {
                        "%" + departmentName.toLowerCase() + "%"
                ));
            }
+
+            if(StringUtils.hasText(departmentCode)){
+                predicates.add(criteriaBuilder.like(
+                        criteriaBuilder.lower(root.get("departmentCode")),
+                        "%" + departmentCode.toLowerCase() + "%"
+                ));
+            }
+
            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }

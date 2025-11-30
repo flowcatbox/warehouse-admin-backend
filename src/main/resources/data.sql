@@ -72,4 +72,35 @@ INSERT INTO department (department_code, department_name) VALUES
                                                               ('QA', 'Quality Assurance'),
                                                               ('RND', 'Research and Development');
 
-
+INSERT INTO items (item_id, item_description, unit_of_price, unit, item_graph)
+VALUES
+    ('ITEM001', 'Wireless Mouse', 25.66, 'ea', 'Graph: Connectivity diagram'),
+    ('ITEM002', 'Mechanical Keyboard', 55.96, 'ea', 'Graph: Key switch layout'),
+    ('ITEM003', '27-inch Monitor', 199.49, 'ea', 'Graph: Display panel structure'),
+    ('ITEM004', 'USB-C Cable', 12.35, 'bt', 'Graph: Cable wiring diagram'),
+    ('ITEM005', 'Laptop Stand', 34.75, 'ea', 'Graph: Adjustable angles chart'),
+    ('ITEM006', 'Office Chair', 149.99, 'ea', 'Graph: Ergonomic support zones'),
+    ('ITEM007', 'Notebook A5', 6.89, 'cs', 'Graph: Page layout sketch'),
+    ('ITEM008', 'Ballpoint Pen Set', 9.45, 'bt', 'Graph: Ink flow diagram'),
+    ('ITEM009', 'Smartphone Case', 18.25, 'ea', 'Graph: Shock absorption zones'),
+    ('ITEM010', 'Bluetooth Speaker', 79.55, 'ea', 'Graph: Sound wave dispersion'),
+    ('ITEM011', 'Power Bank 10000mAh', 45.20, 'ea', 'Graph: Battery cell layout'),
+    ('ITEM012', 'LED Desk Lamp', 32.80, 'ea', 'Graph: Light spectrum chart'),
+    ('ITEM013', 'Coffee Mug', 11.60, 'ea', 'Graph: Heat retention curve'),
+    ('ITEM014', 'Water Bottle', 15.75, 'ea', 'Graph: Insulation performance'),
+    ('ITEM015', 'Yoga Mat', 28.40, 'ea', 'Graph: Grip texture pattern'),
+    ('ITEM016', 'Running Shoes', 89.99, 'ea', 'Graph: Sole cushioning zones'),
+    ('ITEM017', 'Backpack', 59.25, 'ea', 'Graph: Storage compartment map'),
+    ('ITEM018', 'Wireless Earbuds', 129.50, 'ea', 'Graph: Audio frequency response'),
+    ('ITEM019', 'Smartwatch', 199.95, 'ea', 'Graph: Sensor integration diagram'),
+    ('ITEM020', 'External Hard Drive 1TB', 85.75, 'ea', 'Graph: Data transfer flow'),
+    ('ITEM021', 'Printer Ink Cartridge', 22.40, 'bt', 'Graph: Ink distribution chart'),
+    ('ITEM022', 'Whiteboard Markers', 14.99, 'cs', 'Graph: Color intensity curve'),
+    ('ITEM023', 'Desk Organizer', 27.35, 'ea', 'Graph: Compartment arrangement'),
+    ('ITEM024', 'Gaming Chair', 179.80, 'ea', 'Graph: Reclining mechanism sketch'),
+    ('ITEM025', 'HDMI Cable', 13.45, 'bt', 'Graph: Signal transmission diagram'),
+    ('ITEM026', 'Smart LED Bulb', 19.99, 'ea', 'Graph: RGB color spectrum'),
+    ('ITEM027', 'Portable Projector', 249.60, 'ea', 'Graph: Projection distance chart'),
+    ('ITEM028', 'Electric Kettle', 39.75, 'ea', 'Graph: Heating coil layout'),
+    ('ITEM029', 'Rice Cooker', 58.20, 'ea', 'Graph: Cooking cycle diagram'),
+    ('ITEM030', 'Vacuum Cleaner', 129.99, 'ea', 'Graph: Airflow suction path');

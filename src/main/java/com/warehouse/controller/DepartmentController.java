@@ -25,9 +25,10 @@ public class DepartmentController {
     public ResponseEntity<?> getDepartments(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String departmentCode,
             @RequestParam(required = false) String departmentName) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<Department> departmentPage = departmentService.findByDepartmentNameContainingIgnoreCase(pageable, departmentName);
+        Page<Department> departmentPage = departmentService.findByDepartmentNameContainingIgnoreCase(pageable, departmentCode, departmentName);
 
         Map<String, Object> response = new HashMap<>();
         response.put("list", departmentPage.getContent());

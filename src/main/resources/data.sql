@@ -104,3 +104,12 @@ VALUES
     ('ITEM028', 'Electric Kettle', 39.75, 'ea', 'Graph: Heating coil layout'),
     ('ITEM029', 'Rice Cooker', 58.20, 'ea', 'Graph: Cooking cycle diagram'),
     ('ITEM030', 'Vacuum Cleaner', 129.99, 'ea', 'Graph: Airflow suction path');
+
+
+INSERT INTO deliverylist (delivery_list_id, department_id, delivery_date, note)
+VALUES
+    ("10001", 'DPT-001', '2025-11-01', '11'),
+    ("10002", 'DPT-002', '2025-11-02', '2222'),
+    ("10003", 'DPT-003', '2025-11-03', '333'),
+    ("10004", 'DPT-001', '2025-11-04', '4444'),
+    ("10005", 'DPT-004', '2025-11-05', '4455');

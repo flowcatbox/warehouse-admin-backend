@@ -1,0 +1,29 @@
+package com.warehouse.entity;
+
+import lombok.Data;
+import javax.persistence.*;
+import java.util.Date;
+
+
+@Data
+@Entity
+@Table(name = "deliverylist")
+public class DeliveryList {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "delivery_list_id", nullable = false, unique = true)
+    private String delivery_list_id;
+
+    @Column(name = "department_id")
+    private String department_id;
+
+    @Column(name = "delivery_date")
+    private Date delivery_date;
+
+    @Column(name = "note", nullable = true)
+    private String note;
+
+}

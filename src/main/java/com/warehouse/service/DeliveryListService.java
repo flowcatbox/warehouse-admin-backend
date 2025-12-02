@@ -60,7 +60,7 @@ public class DeliveryListService {
         }, pageable);
     }
 
-    public DeliveryList createDeliveryList(Long id, DeliveryList deliveryList){
+    public DeliveryList createDeliveryList(DeliveryList deliveryList){
         //update delivery list date
         return deliveryListRepository.save(deliveryList);
     }

@@ -21,7 +21,7 @@ public class DeliveryList {
     private String department_id;
 
     @Column(name = "delivery_date")
-    private Date delivery_date;
+    private String delivery_date;
 
     @Column(name = "note", nullable = true)
     private String note;

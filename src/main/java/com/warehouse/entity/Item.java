@@ -3,6 +3,7 @@ package com.warehouse.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,4 +28,8 @@ public class Item {
 
     @Column(nullable = true)
     private String item_graph;
+
+    @OneToMany(mappedBy = "item")
+    private List<DeliveryItem> deliveries;
+
 }

@@ -113,3 +113,11 @@ VALUES
     ('10003', 'DPT-003', '2025-11-03', '333'),
     ('10004', 'DPT-001', '2025-11-04', '4444'),
     ('10005', 'DPT-004', '2025-11-05', '4455');
+
+INSERT INTO delivery_items (delivery_id, item_id, quantity, price, note)
+VALUES
+(1, 1, 10, 20.00, 'none'),
+(1, 2, 5, 35.00, 'none'),
+(2, 2, 8, 34.50, 'none'),
+(2, 3, 12, 15.75, 'none');
+

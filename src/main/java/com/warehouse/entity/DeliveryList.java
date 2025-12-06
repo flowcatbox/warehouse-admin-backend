@@ -3,6 +3,7 @@ package com.warehouse.entity;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -25,5 +26,8 @@ public class DeliveryList {
 
     @Column(name = "note", nullable = true)
     private String note;
+
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    private List<DeliveryItem> items;
 
 }

@@ -1,6 +1,7 @@
 package com.warehouse.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
@@ -30,6 +31,7 @@ public class Item {
     private String item_graph;
 
     @OneToMany(mappedBy = "item")
+    @JsonIgnore
     private List<DeliveryItem> deliveries;
 
 }

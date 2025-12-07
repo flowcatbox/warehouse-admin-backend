@@ -1,17 +1,7 @@
 package com.warehouse.controller;
-import com.warehouse.entity.DeliveryList;
-import com.warehouse.entity.LinenItem;
-import com.warehouse.service.DeliveryListService;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import lombok.Data;
+import com.warehouse.entity.DeliveryList;
+import com.warehouse.service.DeliveryListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,16 +22,21 @@ public class DeliverListController {
 
     @GetMapping
     public ResponseEntity<?> getDeliverylist(
-           @RequestParam(defaultValue = "1") int page,
-           @RequestParam(defaultValue = "10") int size,
-           @RequestParam(required = false) String delivery_list_id,
-           @RequestParam(required = false) String department_id,
-           @RequestParam(required = false) String delivery_date_start,
-           @RequestParam(required = false) String delivery_date_end
-    ){
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String delivery_list_id,
+            @RequestParam(required = false) String department_id,
+            @RequestParam(required = false) String delivery_date_start,
+            @RequestParam(required = false) String delivery_date_end
+    ) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        Page<DeliveryList>  deliveryListPage = deliveryListService.getDeliveryListsPagination(
-                pageable, delivery_list_id, delivery_date_start, delivery_date_end, department_id
+
+        Page<DeliveryList> deliveryListPage = deliveryListService.getDeliveryListsPagination(
+                pageable,
+                delivery_list_id,
+                delivery_date_start,
+                delivery_date_end,
+                department_id
         );
 
         Map<String, Object> response = new HashMap<>();
@@ -53,7 +48,6 @@ public class DeliverListController {
         return ResponseEntity.ok(response);
     }
 
-
     @PostMapping
     public ResponseEntity<DeliveryList> createDeliveryList(@RequestBody DeliveryList deliveryListInfo) {
         DeliveryList deliveryList = deliveryListService.createDeliveryList(deliveryListInfo);
@@ -63,7 +57,7 @@ public class DeliverListController {
     @PutMapping("/{id}")
     public ResponseEntity<DeliveryList> updateDeliveryList(@PathVariable Long id, @RequestBody DeliveryList DeliveryListInfo) {
         DeliveryList deliveryList = deliveryListService.updateDeliveryList(id, DeliveryListInfo);
-        if(deliveryList != null){
+        if (deliveryList != null) {
             return ResponseEntity.ok(deliveryList);
         }
         return ResponseEntity.notFound().build();
@@ -71,17 +65,16 @@ public class DeliverListController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDeliveryList(@PathVariable Long id) {
-        if(deliveryListService.deleteDeliveryList(id)) {
+        if (deliveryListService.deleteDeliveryList(id)) {
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
             response.put("message", "Delivery list has been deleted");
             return ResponseEntity.ok(response);
-        }else{
+        } else {
             Map<String, Object> response = new HashMap<>();
             response.put("success", false);
             response.put("message", "Delivery list hasn't been deleted");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
-
 }

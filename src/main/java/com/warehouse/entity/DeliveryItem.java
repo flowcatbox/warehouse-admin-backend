@@ -1,5 +1,6 @@
 package com.warehouse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ public class DeliveryItem {
 
     @ManyToOne
     @JoinColumn(name = "delivery_id", nullable = false)
+    @JsonIgnore
     private DeliveryList delivery;
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.warehouse.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;

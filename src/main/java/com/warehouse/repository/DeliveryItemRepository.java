@@ -3,6 +3,8 @@
 package com.warehouse.repository;
 
 import com.warehouse.entity.DeliveryItem;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,9 +16,9 @@ import java.util.List;
 @Repository
 public interface DeliveryItemRepository extends JpaRepository<DeliveryItem, Long> {
 
-    List<DeliveryItem> findByDeliveryId(Long deliveryId);
+    Page<DeliveryItem> findByDeliveryId(Pageable pageable, Long deliveryId);
 
-    List<DeliveryItem> findByItemId(Long itemId);
+    Page<DeliveryItem> findByItemId(Pageable pageable, Long itemId);
 
     @Query("SELECT SUM(di.quantity * di.price) FROM DeliveryItem di WHERE di.delivery.id = :deliveryId")
     BigDecimal getTotalAmountByDeliveryId(@Param("deliveryId") Long deliveryId);

@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeliveryListRepository extends JpaRepository<DeliveryList, Long> {
     Page<DeliveryList> findAll(Specification<DeliveryList> spec, Pageable pageable);
+    DeliveryList findByDeliveryListId(String deliveryListId);
 }

@@ -27,8 +27,8 @@ public class ItemController {
     public ResponseEntity<?> getAllItems(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false, name = "item_description") String desc,
-            @RequestParam(required = false, name = "item_id") String itemId) {
+            @RequestParam(required = false, name = "itemDescription") String desc,
+            @RequestParam(required = false, name = "itemId") String itemId) {
 
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Item> itemsPage = itemService.getItemsWithPagination(pageable, desc, itemId);

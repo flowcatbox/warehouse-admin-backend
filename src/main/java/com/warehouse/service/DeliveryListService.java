@@ -23,33 +23,33 @@ public class DeliveryListService {
     }
 
     public Page<DeliveryList> getDeliveryListsPagination(Pageable pageable,
-                                                         String delivery_list_id,
-                                                         String delivery_date_start,
-                                                         String delivery_date_end,
-                                                         String department_id) {
+                                                         String deliveryListId,
+                                                         String deliveryDateStart,
+                                                         String deliveryDateEnd,
+                                                         String departmentId) {
         return deliveryListRepository.findAll((Specification<DeliveryList>) (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (StringUtils.hasText(delivery_list_id)) {
+            if (StringUtils.hasText(deliveryListId)) {
                 predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("delivery_list_id")),
-                        "%" + delivery_list_id.toLowerCase() + "%"
+                        criteriaBuilder.lower(root.get("deliveryListId")),
+                        "%" + deliveryListId.toLowerCase() + "%"
                 ));
             }
 
-            if (StringUtils.hasText(department_id)) {
+            if (StringUtils.hasText(departmentId)) {
                 predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("department_id")),
-                        "%" + department_id.toLowerCase() + "%"
+                        criteriaBuilder.lower(root.get("departmentId")),
+                        "%" + departmentId.toLowerCase() + "%"
                 ));
             }
 
-            if (StringUtils.hasText(delivery_date_start)) {
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("delivery_date"), delivery_date_start));
+            if (StringUtils.hasText(deliveryDateStart)) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("deliveryDate"), deliveryDateStart));
             }
 
-            if (StringUtils.hasText(delivery_date_end)) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("delivery_date"), delivery_date_end));
+            if (StringUtils.hasText(deliveryDateEnd)) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("deliveryDate"), deliveryDateEnd));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
@@ -63,9 +63,9 @@ public class DeliveryListService {
     public DeliveryList updateDeliveryList(Long id, DeliveryList deliveryList) {
         return deliveryListRepository.findById(id)
                 .map(dbDeliveryList -> {
-                    dbDeliveryList.setDelivery_list_id(deliveryList.getDelivery_list_id());
-                    dbDeliveryList.setDepartment_id(deliveryList.getDepartment_id());
-                    dbDeliveryList.setDelivery_date(deliveryList.getDelivery_date());
+                    dbDeliveryList.setDeliveryListId(deliveryList.getDeliveryListId());
+                    dbDeliveryList.setDepartmentId(deliveryList.getDepartmentId());
+                    dbDeliveryList.setDeliveryDate(deliveryList.getDeliveryDate());
                     dbDeliveryList.setNote(deliveryList.getNote());
                     return deliveryListRepository.save(dbDeliveryList);
                 }).orElse(null);

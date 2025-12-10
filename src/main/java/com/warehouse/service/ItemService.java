@@ -24,22 +24,22 @@ public class ItemService {
     }
 
     public Page<Item> getItemsWithPagination(Pageable pageable,
-                                       String item_description,
-                                       String item_id) {
+                                       String itemDescription,
+                                       String itemId) {
         return itemRepository.findAll((Specification<Item>) (root, query, criteriaBuilder) ->{
             List<Predicate> predicates = new ArrayList<>();
 
-            if (StringUtils.hasText(item_description)) {
+            if (StringUtils.hasText(itemDescription)) {
                 predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("item_description")),
-                        "%" + item_description.toLowerCase() + "%"
+                        criteriaBuilder.lower(root.get("itemDescription")),
+                        "%" + itemDescription.toLowerCase() + "%"
                 ));
             }
 
-            if(StringUtils.hasText(item_id)){
+            if(StringUtils.hasText(itemId)){
                 predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("item_id")),
-                        "%" + item_id + "%"
+                        criteriaBuilder.lower(root.get("itemId")),
+                        "%" + itemId + "%"
                 ));
             }
 
@@ -54,10 +54,10 @@ public class ItemService {
     public Item updateItem(Long id, Item itemInfo) {
         return itemRepository.findById(id)
                 .map(item -> {
-                     item.setItem_description(itemInfo.getItem_description());
-                     item.setUnit_of_price(itemInfo.getUnit_of_price());
+                     item.setItemDescription(itemInfo.getItemDescription());
+                     item.setUnitOfPrice(itemInfo.getUnitOfPrice());
                      item.setUnit(itemInfo.getUnit());
-                     item.setItem_graph(itemInfo.getItem_graph());
+                     item.setItemGraph(itemInfo.getItemGraph());
                      return itemRepository.save(item);
                  })
                 .orElse(null);

@@ -17,13 +17,13 @@ public class DeliveryList {
     private Long id;
 
     @Column(name = "delivery_list_id", nullable = false, unique = true)
-    private String delivery_list_id;
+    private String deliveryListId;
 
     @Column(name = "department_id")
-    private String department_id;
+    private String departmentId;
 
     @Column(name = "delivery_date")
-    private String delivery_date;
+    private String deliveryDate;
 
     @Column(name = "note", nullable = true)
     private String note;

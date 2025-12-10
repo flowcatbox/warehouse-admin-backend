@@ -24,19 +24,19 @@ public class DeliverListController {
     public ResponseEntity<?> getDeliverylist(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String delivery_list_id,
-            @RequestParam(required = false) String department_id,
-            @RequestParam(required = false) String delivery_date_start,
-            @RequestParam(required = false) String delivery_date_end
+            @RequestParam(required = false) String deliveryListId,
+            @RequestParam(required = false) String departmentId,
+            @RequestParam(required = false) String deliveryDateStart,
+            @RequestParam(required = false) String deliveryDateEnd
     ) {
         Pageable pageable = PageRequest.of(page - 1, size);
 
         Page<DeliveryList> deliveryListPage = deliveryListService.getDeliveryListsPagination(
                 pageable,
-                delivery_list_id,
-                delivery_date_start,
-                delivery_date_end,
-                department_id
+                deliveryListId,
+                deliveryDateStart,
+                deliveryDateEnd,
+                departmentId
         );
 
         Map<String, Object> response = new HashMap<>();

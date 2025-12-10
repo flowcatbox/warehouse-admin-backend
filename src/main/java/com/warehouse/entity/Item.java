@@ -16,19 +16,19 @@ public class Item {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String item_id;
+    private String itemId;
 
     @Column(nullable = false)
-    private String item_description;
+    private String itemDescription;
 
     @Column(nullable = false)
-    private double unit_of_price;
+    private double unitOfPrice;
 
     @Column(nullable = false)
     private String unit;
 
     @Column(nullable = true)
-    private String item_graph;
+    private String itemGraph;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore

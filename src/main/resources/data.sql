@@ -105,19 +105,23 @@ VALUES
     ('ITEM029', 'Rice Cooker', 58.20, 'ea', 'Graph: Cooking cycle diagram'),
     ('ITEM030', 'Vacuum Cleaner', 129.99, 'ea', 'Graph: Airflow suction path');
 
-
 INSERT INTO deliverylist (delivery_list_id, department_id, delivery_date, note)
 VALUES
-    ('10001', 'DPT-001', '2025-11-01', '11'),
-    ('10002', 'DPT-002', '2025-11-02', '2222'),
-    ('10003', 'DPT-003', '2025-11-03', '333'),
-    ('10004', 'DPT-001', '2025-11-04', '4444'),
-    ('10005', 'DPT-004', '2025-11-05', '4455');
+    ('10001', 'HR', '2025-11-01', '11'),
+    ('10002', 'HR', '2025-11-02', '2222'),
+    ('10003', 'FIN', '2025-11-03', '333'),
+    ('10004', 'FIN', '2025-11-04', '4444'),
+    ('10005', 'ENG', '2025-11-05', '4455');
 
 INSERT INTO delivery_items (delivery_id, item_id, quantity, price, note)
 VALUES
-(1, 1, 10, 20.00, 'none'),
-(1, 2, 5, 35.00, 'none'),
-(2, 2, 8, 34.50, 'none'),
-(2, 3, 12, 15.75, 'none');
+(1, 26, 10, 20.00, 'none'),
+(1, 25, 5, 35.00, 'none'),
+(2, 21, 8, 34.50, 'none'),
+(2, 15, 12, 15.75, 'none');
 
+
+INSERT INTO tracking_numbers (tracking_number, carrier_type, status, note, created_at, updated_at)
+VALUES
+    ('TN0001', 'UPS', 'Active', 'Sample tracking number 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    ('TN0002', 'FedEx', 'Delivered', 'Sample tracking number 2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

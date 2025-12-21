@@ -95,4 +95,12 @@ public class AuthSessionService {
         LocalDateTime expiresAt = session.getExpiresAt();
         return expiresAt != null && expiresAt.isBefore(LocalDateTime.now());
     }
+
+    public void deleteAllSessionsForUser(Long userId) {
+        if(userId == null){
+            return;
+        }
+        authSessionRepository.deleteByUserId(userId);
+    }
+
 }

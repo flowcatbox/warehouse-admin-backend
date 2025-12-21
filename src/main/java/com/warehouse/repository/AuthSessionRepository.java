@@ -16,4 +16,6 @@ public interface AuthSessionRepository extends JpaRepository<AuthSession, Long> 
     void deleteByAccessToken(String accessToken);
 
     void deleteByRefreshToken(String refreshToken);
+
+    void deleteByUserId(Long userId);
 }

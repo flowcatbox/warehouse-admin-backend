@@ -227,6 +227,9 @@ public class AuthController {
         // user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
 
+        //remove all token session
+        authSessionService.deleteAllSessionsForUser(user.getId());
+
         //
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
@@ -277,16 +280,36 @@ public class AuthController {
 
             String role = user.getRole() != null ? user.getRole().toUpperCase() : "";
             String[] perms;
-            if ("ADMIN".equals(role)) {
-                perms = new String[]{"user:add", "user:edit", "user:delete", "linen:manage"};
-            } else if ("EDITOR".equals(role)) {
-                perms = new String[]{"linen:manage"};
-            } else {
-                perms = new String[]{"linen:view"};
+            switch (role) {
+                case "ADMIN":
+                    perms = new String[]{
+                            "dashboard:view",
+                            "item:view", "item:manage",
+                            "delivery:view", "delivery:manage",
+                            "tracking:view", "tracking:manage",
+                            "user:manage"
+                    };
+                    break;
+                case "EDITOR":
+                    perms = new String[]{
+                            "dashboard:view",
+                            "item:view", "item:manage",
+                            "delivery:view", "delivery:manage",
+                            "tracking:view"
+                    };
+                    break;
+                default:
+                    perms = new String[]{
+                            "dashboard:view",
+                            "item:view",
+                            "delivery:view",
+                            "tracking:view"
+                    };
             }
             info.setPermissions(perms);
             return info;
         }
+
     }
 
     @Data

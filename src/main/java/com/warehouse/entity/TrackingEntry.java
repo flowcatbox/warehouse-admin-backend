@@ -45,4 +45,17 @@ public class TrackingEntry {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public enum TrackingEntryStatus{
+        NEW,
+        CONFIRMED,
+        REJECTED
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="status", length = 20)
+    private TrackingEntryStatus status;
+
+    @Column(name="tracking_number_id")
+    private Long trackingNumberId;
 }

@@ -2,6 +2,7 @@ package com.warehouse.controller;
 
 import com.warehouse.entity.TrackingCarrier;
 import com.warehouse.entity.TrackingEntry;
+import com.warehouse.entity.TrackingNumber;
 import com.warehouse.service.TrackingEntryService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -118,6 +119,25 @@ public class TrackingEntryController {
 
         return ResponseEntity.ok(resp);
     }
+
+
+    @PostMapping("/{id}/confirm")
+    public ResponseEntity<?> confirmEntry(@PathVariable Long id) {
+        TrackingNumber number = trackingEntryService.confirmEntry(id);
+        Map<String,Object> resp = new HashMap<>();
+        resp.put("success", true);
+        resp.put("trackingNumberId", number.getId());
+        return ResponseEntity.ok(resp);
+    }
+
+    @PostMapping("/{id}/reject")
+    public ResponseEntity<?> rejectEntry(@PathVariable Long id) {
+        trackingEntryService.rejectEntry(id);
+        Map<String,Object> resp = new HashMap<>();
+        resp.put("success", true);
+        return ResponseEntity.ok(resp);
+    }
+
 
     // ===== DTOs =====
 

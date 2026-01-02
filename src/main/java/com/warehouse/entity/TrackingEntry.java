@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import com.warehouse.entity.TrackingEntryStatus;
 
 @Entity
 @Table(name = "tracking_entries")
@@ -45,12 +46,6 @@ public class TrackingEntry {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    public enum TrackingEntryStatus{
-        NEW,
-        CONFIRMED,
-        REJECTED
-    }
 
     @Enumerated(EnumType.STRING)
     @Column(name="status", length = 20)
